@@ -34,7 +34,13 @@ function generateTicket() {
 	});
 	const textQR = `Фильм: ${selectSeanse.filmName} Зал: ${selectSeanse.hallName} Ряд/Место ${places} Дата: ${dateStr} Начало сеанса: ${selectSeanse.seanceTime} Билет действителен строго на свой сеанс`;
 	const qrcode = QRCreator(textQR, {
-		image: "SVG"
+		mode: 4,
+		eccl: 0,
+		version: -1,
+		mask: -1,
+		image: "png",
+		modsize: 3,
+		margin: 4,
 	});
 
 	const content = (qrcode)=> {
