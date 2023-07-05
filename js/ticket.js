@@ -32,24 +32,13 @@ function generateTicket() {
 		month: "2-digit",
 		year: "numeric"
 	});
-	const textQR = `Фильм: ${selectSeanse.filmName} Зал: ${selectSeanse.hallName} Ряд/Место ${places} Дата: ${dateStr} Начало сеанса: ${selectSeanse.seanceTime} Билет действителен строго на свой сеанс`;
+	let textQR = `Фильм: ${selectSeanse.filmName} Зал: ${selectSeanse.hallName} Ряд/Место ${places} Дата: ${dateStr} Начало сеанса: ${selectSeanse.seanceTime} Билет действителен строго на свой сеанс`;
 	const qrcode = QRCreator(textQR, {
-		mode: 4,
-		eccl: 0,
-		version: -1,
-		mask: -1,
-		image: "png",
-		modsize: 3,
-		margin: 4,
+		image: "SVG"
 	});
-
-	const content = (qrcode)=> {
-		return qrcode.error 
-		? 'недопустимые исходные данные ${qrcode.error}' 
-		: qrcode.result;
-	};
 	qrcode.download();
-	document.getElementById("qrcode").append("", content(qrcode));
+	document.querySelector(".ticket__info-qr").append(qrcode.result);
+	console.log(qrcode.result);
 }
 
 document.addEventListener("DOMContentLoaded", generateTicket);
